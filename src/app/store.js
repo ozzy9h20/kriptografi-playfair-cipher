@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import playfairReducer from '../features/playfair/playfairSlice';
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    playfair: playfairReducer
   },
 });
