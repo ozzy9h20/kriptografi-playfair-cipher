@@ -13,6 +13,7 @@ export const playfairSlice = createSlice({
   reducers: {
     crypt: state => {
       state.sliced_plaintext = state.plaintext
+        .replace(/J/g,'I')
         .split(' ')
         .reduce((acc,cur,idx) => {
           acc.push([]);
@@ -36,7 +37,7 @@ export const playfairSlice = createSlice({
 
       state.ciphertext_arr = state.sliced_plaintext.map(word => {
         return word.map(substr => {
-          const [lt1, lt2] = substr;
+          const [lt1, lt2] = substr;        
           const [rowIndex1, colIndex1] = findKey(lt1);
           const [rowIndex2, colIndex2] = findKey(lt2);
       
@@ -57,7 +58,13 @@ export const playfairSlice = createSlice({
     },
     render_key: (state) => {
       const alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-      state.rendered_key = [...new Set([...state.key, ...alphabet])]
+      state.rendered_key = [
+        ...new Set(
+          [
+            ...state.key.replace(/J/g,'I'), 
+            ...alphabet
+          ])
+        ]
         .filter(lt => alphabet.includes(lt))
         .reduce((acc,cur,idx) => {
           const row = Math.floor((idx)/5);
@@ -67,7 +74,7 @@ export const playfairSlice = createSlice({
         }, []);
     },
     update_plain: (state, action) => {
-      const alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ ";
+      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
       const processed = action.payload
         .toUpperCase()
         .split('')
@@ -78,7 +85,8 @@ export const playfairSlice = createSlice({
       localStorage.setItem('plaintext', processed);
     },
     update_key: (state,action) => {
-      const processed = action.payload.toUpperCase();
+      const processed = action.payload
+        .toUpperCase()
       state.key = processed;
       localStorage.setItem('key', processed);
     }
