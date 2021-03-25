@@ -43,7 +43,7 @@ const Playfair = () => {
             <td>{playfair.sliced_plaintext.flat().join(" ")}</td>
           </tr>
           <tr>
-            <td>ChiperText</td>
+            <td>CipherText</td>
             <td>{playfair.ciphertext}</td>
           </tr>
           <tr>

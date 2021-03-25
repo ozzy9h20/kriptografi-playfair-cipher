@@ -61,7 +61,7 @@ export const playfairSlice = createSlice({
       state.rendered_key = [
         ...new Set(
           [
-            ...state.key.replace(/J/g,'I'), 
+            ...state.key,
             ...alphabet
           ])
         ]
